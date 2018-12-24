@@ -7,7 +7,7 @@ export default class ItemAddForm extends React.Component{
         return (
             <div className="item-add-form">
                 <button className="btn btn-outline-secondary"
-                onClick={() => onAdded("Hi")}
+                onClick={() => onAdded("new task")}
                 >
                     Add Item
                 </button>
