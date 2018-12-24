@@ -4,6 +4,7 @@ import AppHeader from '../app-header';
 import SearchPanel from '../search-panel';
 import TodoList from '../todo-list';
 import ItemStatusFilter from '../item-status-filter';
+import ItemAddForm from '../item-add-form';
 
 import './app.css';
 
@@ -24,6 +25,21 @@ export default class App extends React.Component{
     })
   };
 
+  addItem = (text) => {
+    let {todoData} = this.state;
+    let index = todoData[todoData.length - 1].id;
+    const newItem = {
+      label: text,
+      important: false,
+      id: ++index
+    };
+    this.setState(() => {
+      let todoData1 = todoData.slice();
+      todoData1.push(newItem);
+      return {todoData: todoData1}
+    })
+  };
+
   render(){
     const {todoData} = this.state;
     return (
@@ -37,6 +53,8 @@ export default class App extends React.Component{
         <TodoList todos={todoData}
         onDeleted = {this.deleteItem}
         />
+
+        <ItemAddForm onAdded={this.addItem}/>
       </div>
     );
   }
