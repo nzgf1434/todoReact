@@ -26,25 +26,16 @@ export default class TodoListItem extends React.Component{
   };
   
   render(){
-    const {label} = this.props;
+    const {label, onDeleted} = this.props;
     const {done, important} = this.state;
     let classNames = "todo-list-item";
 
     if (done){
       classNames += " done";
-    }else{
-      if(classNames.indexOf("done") !== -1){
-        classNames = classNames.slice(0, classNames.indexOf("done")-1) + classNames.slice(classNames.indexOf("done") + 4)
-      }
     };
     
     if (important){
       classNames += " important";
-    }
-    else{
-      if(classNames.indexOf("important") !== -1){
-        classNames = classNames.slice(0, classNames.indexOf("important")-1) + classNames.slice(classNames.indexOf("important") + 9)
-      }
     };
 
     return (
@@ -62,7 +53,9 @@ export default class TodoListItem extends React.Component{
         </button>
   
         <button type="button"
-                className="btn btn-outline-danger btn-sm float-right">
+                className="btn btn-outline-danger btn-sm float-right"
+                onClick = {onDeleted}
+                >
           <i className="fa fa-trash-o" />
         </button>
       </span>
