@@ -19,13 +19,43 @@ export default class App extends React.Component{
       this.createTodoItem('Have a lunch')
     ]
   };
+
+  onShowActive = () => {
+    this.setState(({todoData}) => {
+      const todoActive = todoData.slice();
+      todoActive.forEach((item) => item["filter"] = "active");
+      return {todoData: todoActive};
+      }
+    )
+  };
+
+  onShowDone = () => {
+    this.setState(({todoData}) => {
+      const todoActive = todoData.slice();
+      todoActive.forEach((item) => item["filter"] = "done");
+      return {todoData: todoActive};
+      }
+    )
+  };
+
+  onShowAll = () => {
+    this.setState(({todoData}) => {
+      const todoActive = todoData.slice();
+      todoActive.forEach((item) => item["filter"] = "all");
+      return {todoData: todoActive};
+      }
+    )
+  };
+
+
   
   createTodoItem(label){
     return {
       label: label,
       important: false,
       done: false,
-      id: this.startIndex++
+      id: this.startIndex++,
+      filter: "all"
     }
   };
 
@@ -57,7 +87,7 @@ export default class App extends React.Component{
     })
   }
 
-  onToggleImportant = (id ) => {
+  onToggleImportant = (id) => {
       this.toggleProperty(id, 'important');
   };
 
@@ -76,7 +106,11 @@ export default class App extends React.Component{
         <AppHeader toDo={todoCount} done={doneCount} />
         <div className="top-panel d-flex">
           <SearchPanel />
-          <ItemStatusFilter />
+          <ItemStatusFilter 
+          todos={todoData}
+          onShowDone = {this.onShowDone}
+          onShowActive = {this.onShowActive}
+          onShowAll = {this.onShowAll}/>
         </div>
 
         <TodoList todos={todoData}

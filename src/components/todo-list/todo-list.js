@@ -4,12 +4,19 @@ import TodoListItem from '../todo-list-item';
 import './todo-list.css';
 
 const TodoList = ({ todos, onDeleted, onAdded, onToggleDone, onToggleImportant }) => {
-
+  
   const elements = todos.map((item) => {
-    const { id, ...itemProps } = item;
-
+    const { id, filter, ...itemProps } = item;
+    console.log(filter, itemProps.done);
+    let classNames = "list-group-item";
+    if (filter === "done" && !itemProps.done){
+      classNames += " hidden";
+    }else if (filter === "active" && itemProps.done){
+      classNames += " hidden";
+      console.log(classNames);
+    };
     return (
-      <li key={id} className="list-group-item">
+      <li key={id} className={classNames}>
         <TodoListItem {...itemProps } 
         onDeleted = {() => onDeleted(id)}
         onAdded = {() => onAdded()}
