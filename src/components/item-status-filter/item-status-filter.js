@@ -17,9 +17,10 @@ export default class ItemStatusFilter extends React.Component{
       case "done":
       classNames[2] += " active";
       break;
-    }
-    
-     
+      default:
+      break;
+    };
+
     return (
       <div>
         <button type="button"
